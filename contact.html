@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact ElRay Energy</title>
+<meta name="description" content="Book a free site survey with ElRay Energy in Mowe, Ogun State, the first step in every audited solar installation.">
+<link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="shortcut icon" href="/assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="ElRay Energy" />
+<link rel="manifest" href="/assets/site.webmanifest" />
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="navrow">
+    <a href="index.html" class="logo">
+      <img src="assets/elray_horizontal-logo_color.png" alt="ElRay Energy">
+    </a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-gold nav-cta">Book a Site Survey</a>
+    <a href="contact.html" class="btn btn-outline mobile-cta">Book a Survey</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero" style="padding-bottom:0;">
+    <div class="wrap">
+      <span class="tag reveal">Get Started</span>
+      <h1 class="reveal" style="margin-top:16px;">Book your free site survey.</h1>
+      <p class="section-sub reveal">Tell us a little about your property and what you're looking to power. No cost, no obligation, this is step one of the ElRay process.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <div class="contact-info reveal">
+          <div class="info-item">
+            <h4>Phone / WhatsApp</h4>
+            <a href="https://wa.me/2349040054547">+234 904 005 4547</a>
+          </div>
+          <div class="info-item">
+            <h4>Email</h4>
+            <a href="mailto:elrayenergy@gmail.com">elrayenergy@gmail.com</a>
+          </div>
+          <div class="info-item">
+            <h4>Service Area</h4>
+            <p>Mowe, Ogun State, and surrounding areas along the Lagos-Ogun corridor.</p>
+          </div>
+          <div class="info-item">
+            <h4>What Happens Next</h4>
+            <p>We'll reach out to confirm details and schedule a physical site visit, usually within a few days of your request.</p>
+          </div>
+        </div>
+
+        <form class="form-card reveal" id="survey-form" action="https://formspree.io/f/xljrnywr" method="POST">
+          <div class="form-row">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-row two-col">
+            <div>
+              <label for="phone">Phone number (WhatsApp preferred)</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div>
+              <label for="email">Email <span style="font-weight:400; color:#8892A0;">(optional)</span></label>
+              <input type="email" id="email" name="email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="address">Property address / area</label>
+            <input type="text" id="address" name="address" placeholder="e.g. Mowe, Ogun State" required>
+          </div>
+
+          <div class="form-row">
+            <label for="property-type">Property type</label>
+            <select id="property-type" name="property-type" required>
+              <option value="">Select one</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="load">What are you looking to power?</label>
+            <select id="load" name="load">
+              <option value="">Select one</option>
+              <option value="whole-home">Whole home / business</option>
+              <option value="essentials">Specific appliances / essentials only</option>
+              <option value="backup">Backup power only</option>
+              <option value="not-sure">Not sure, that's what the survey is for</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="notes">Anything else we should know? <span style="font-weight:400; color:#8892A0;">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width:100%;">Request a Site Survey</button>
+          <p class="form-note">This form doesn't send anywhere yet, see README.md for how to connect it to email, WhatsApp, or a backend.</p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">
+        <img src="assets/elray_horizontal-logo_white.png" alt="ElRay Energy">
+        <p>Audited residential and commercial solar installation &amp; maintenance.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Site</h4>
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="foot-col">
+        <h4>Get in touch</h4>
+        <p>Mowe, Ogun State, Nigeria</p>
+        <a href="contact.html">Book a Site Survey</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© <span id="year"></span> ElRay Energy Ltd. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

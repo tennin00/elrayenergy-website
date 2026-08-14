@@ -25,6 +25,7 @@ defined in `ElRay_Brand_Guidelines.pdf` v1.0.
 
 elray-website/
 ├── index.html Home
+
 ├── how-it-works.html The 5-step audit process
 ├── services.html Residential / Commercial
 ├── about.html Founder story + image hero

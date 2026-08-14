@@ -24,18 +24,29 @@ defined in `ElRay_Brand_Guidelines.pdf` v1.0.
 ## Project structure
 
 elray-website/
+
 ├── index.html Home
 
 ├── how-it-works.html The 5-step audit process
+
 ├── services.html Residential / Commercial
+
 ├── about.html Founder story + image hero
+
 ├── contact.html Site survey booking form (→ Formspree)
+
 ├── css/
+
 │ └── styles.css Design tokens, @font-face, all shared styles
+
 ├── js/
+
 │ └── main.js Scroll reveal, active nav, form handling
+
 ├── fonts/ Self-hosted Poppins .ttf files
+
 ├── assets/ Logos + photography
+
 └── README.md
 
 Every page shares `css/styles.css` and `js/main.js`, edit either once,

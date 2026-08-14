@@ -370,30 +370,43 @@ h2.section-head{
 .diff-card p{font-size:14.5px; color:#5A6578; line-height:1.6;}
 
 /* ---------- Who we serve / services ---------- */
-.serve-grid{ margin-top:44px; display:grid; grid-template-columns:1fr; gap:22px; }
+.serve-grid{
+  margin-top:44px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  perspective:1200px; /* gives the tilted children somewhere to tilt "into" */
+}
 @media(min-width:760px){.serve-grid{grid-template-columns:1fr 1fr;}}
+
 .serve-card{
   padding:34px;
   background:var(--white);
   border:1px solid rgba(21,29,43,0.06);
-  border-radius:12px;
+  border-radius:var(--radius);
   position:relative;
   overflow:hidden;
-  /* layered shadow = depth: a tight "contact" shadow close to the card,
-     plus a soft, wider ambient shadow further out */
+  transform-style:preserve-3d;
   box-shadow:
     0 1px 2px rgba(21,29,43,0.06),
     0 8px 16px -8px rgba(21,29,43,0.12),
     0 24px 40px -20px rgba(21,29,43,0.18);
-  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  transition:box-shadow 0.3s ease, transform 0.5s ease;
+  will-change:transform;
 }
-.serve-card:hover{
-  transform:translateY(-6px);
-  box-shadow:
-    0 2px 4px rgba(21,29,43,0.08),
-    0 14px 24px -10px rgba(21,29,43,0.16),
-    0 32px 56px -20px rgba(21,29,43,0.28);
+
+/* glare that follows the cursor — position set by JS via --mx/--my */
+.serve-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.35), transparent 55%);
+  opacity:0;
+  transition:opacity 0.3s ease;
+  pointer-events:none;
 }
+.serve-card.tilting::after{ opacity:1; }
 .serve-card .serve-label{
   font-size:11px;
   letter-spacing:0.14em;

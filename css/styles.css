@@ -402,6 +402,116 @@ h2.section-head{
 }
 .problem-item p{color:#CBD4E1; font-size:15px; line-height:1.6;}
 
+/* ---------- Our Services — dark panel ---------- */
+.services-panel{
+  background:var(--navy);
+  border-radius:24px;
+  padding:56px 40px;
+  color:var(--offwhite);
+}
+@media(min-width:900px){ .services-panel{padding:64px 56px;} }
+
+.services-panel-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:40px;
+  align-items:center;
+}
+@media(min-width:960px){ .services-panel-grid{grid-template-columns:0.8fr 1.2fr;} }
+
+.services-intro h2{
+  font-size:clamp(24px,3vw,32px);
+  color:var(--white);
+  line-height:1.25;
+  margin-top:14px;
+}
+.services-intro p{
+  margin-top:14px;
+  font-size:15px;
+  color:#B7C1D1;
+  line-height:1.65;
+  max-width:380px;
+}
+
+.service-cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+}
+@media(min-width:640px){ .service-cards{grid-template-columns:1fr 1fr;} }
+
+.service-photo-card{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--cobalt-tint); /* placeholder tone until real photos are added */
+  min-height:320px;
+  display:flex;
+  align-items:flex-end;
+}
+.service-photo-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+.service-photo-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(
+    180deg,
+    rgba(21,29,43,0.15) 0%,
+    rgba(21,29,43,0.25) 30%,
+    rgba(21,29,43,0.55) 55%,
+    rgba(21,29,43,0.95) 100%
+  );
+}
+.service-photo-card-body{
+  position:relative;
+  z-index:1;
+  padding:22px;
+  width:100%;
+}
+.service-photo-card .label{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:block;
+  margin-bottom:8px;
+}
+.service-photo-card h3{
+  font-size:19px;
+  color:var(--white);
+  margin-bottom:8px;
+}
+.service-photo-card p{
+  font-size:13.5px;
+  color:#D9E0EA;
+  line-height:1.55;
+  margin-bottom:16px;
+}
+
+.icon-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--gold);
+  color:var(--navy);
+  font-size:13px;
+  font-weight:600;
+  padding:9px 16px 9px 18px;
+  border-radius:999px;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.icon-btn:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(255,191,0,0.3); }
+.icon-btn svg{ width:14px; height:14px; }
+
 /* ---------- Difference / feature cards ---------- */
 .diff-grid{ margin-top:48px; display:grid; grid-template-columns:1fr; gap:22px; }
 @media(min-width:700px){.diff-grid{grid-template-columns:1fr 1fr;}}

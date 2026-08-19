@@ -236,39 +236,68 @@ a:focus-visible, button:focus-visible{
 .tag--flush{padding-left:0;}
 .tag--flush::before,.tag--flush::after{display:none;}
 
-/* ---------- Nav ---------- */
+/* ---------- Nav — floating pill bar ---------- */
 header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(246,248,251,0.92);
-  backdrop-filter:blur(6px);
-  border-bottom:1px solid rgba(21,29,43,0.08);
+  background:transparent;
+  padding:18px 0;
 }
 .navrow{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:14px 28px;
+  gap:20px;
   max-width:var(--maxw);
   margin:0 auto;
+  padding:8px 8px 8px 24px;
+  background:var(--navy);
+  border-radius:999px;
+  box-shadow:0 16px 32px -16px rgba(21,29,43,0.4);
 }
-.logo img{height:34px;}
+.logo img{ height:26px; }
+
 nav.links{
   display:none;
   align-items:center;
-  gap:32px;
+  gap:2px;
+  background:rgba(255,255,255,0.07);
+  border-radius:999px;
+  padding:4px;
 }
-@media(min-width:900px){nav.links{display:flex;}}
+@media(min-width:900px){ nav.links{display:flex;} }
 nav.links a{
-  font-size:14px;
+  font-size:13.5px;
   font-weight:500;
-  color:var(--charcoal);
-  padding:6px 0;
-  border-bottom:2px solid transparent;
-  transition:border-color 0.15s ease, color 0.15s ease;
+  color:#B7C1D1;
+  padding:9px 18px;
+  border-radius:999px;
+  border-bottom:none;
+  transition:background 0.15s ease, color 0.15s ease;
 }
-nav.links a:hover, nav.links a.active{border-color:var(--gold); color:var(--cobalt);}
+nav.links a:hover{ background:rgba(255,255,255,0.1); color:var(--white); }
+nav.links a.active{
+  background:var(--gold);
+  color:var(--navy);
+  font-weight:600;
+}
+nav.links a.active:hover{ background:var(--gold); }
+
+.nav-actions{ display:flex; align-items:center; gap:8px; }
+.nav-arrow-btn{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--white);
+  flex-shrink:0;
+  transition:background 0.15s ease;
+}
+.nav-arrow-btn:hover{ background:rgba(255,255,255,0.16); }
+.nav-arrow-btn svg{ width:16px; height:16px; }
 
 .btn{
   display:inline-flex;

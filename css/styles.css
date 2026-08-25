@@ -912,7 +912,12 @@ h2.section-head{
   outline-offset:1px;
   background:var(--white);
 }
-.form-row.two-col{ display:grid; grid-template-columns:1fr; gap:18px; }
+.form-row.two-col{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  align-items:end;
+}
 @media(min-width:520px){ .form-row.two-col{grid-template-columns:1fr 1fr;} }
 .form-note{ font-size:12.5px; color:#6B7686; margin-top:14px; }
 
@@ -921,6 +926,54 @@ h2.section-head{
 .cta-band h2{ font-size:clamp(26px,4vw,40px); color:var(--white); max-width:620px; margin:0 auto; }
 .cta-band .section-sub{ color:#B7C1D1; margin:16px auto 0; text-align:center; }
 .cta-band .hero-ctas{ justify-content:center; margin-top:34px; }
+
+/* ---------- Mobile nav toggle + panel ---------- */
+.nav-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px; height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  color:var(--white);
+  border:none;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.nav-toggle:hover{ background:rgba(255,255,255,0.16); }
+.nav-toggle svg{ width:18px; height:18px; }
+@media(min-width:900px){ .nav-toggle{ display:none; } }
+
+/* the circular arrow CTA is redundant with the toggle + button on
+   small screens — hide it there to avoid crowding */
+@media(max-width:899px){ .nav-arrow-btn{ display:none; } }
+
+.mobile-menu{
+  display:none;
+  max-width:var(--maxw);
+  margin:10px auto 0;
+  padding:0 20px;
+}
+.mobile-menu.open{ display:block; }
+@media(min-width:900px){ .mobile-menu{ display:none !important; } }
+
+.mobile-menu-inner{
+  background:var(--navy);
+  border-radius:18px;
+  padding:10px;
+  box-shadow:0 16px 32px -16px rgba(21,29,43,0.4);
+}
+.mobile-menu a{
+  display:block;
+  padding:13px 16px;
+  border-radius:12px;
+  font-size:14.5px;
+  font-weight:500;
+  color:#D9E0EA;
+  transition:background 0.15s ease, color 0.15s ease;
+}
+.mobile-menu a:hover{ background:rgba(255,255,255,0.08); }
+.mobile-menu a.active{ background:var(--gold); color:var(--navy); font-weight:600; }
 
 /* ---------- Footer ---------- */
 footer{ background:var(--navy); padding:44px 0 30px; border-top:1px solid rgba(246,248,251,0.1); }

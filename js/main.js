@@ -46,6 +46,30 @@ function initTiltCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      // swap hamburger icon to an X while open
+      navToggle.innerHTML = isOpen
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+    });
+
+    // close the menu after tapping a link, so it doesn't stay open
+    // when the new page loads
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   // Footer year
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -73,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mark the current page's nav link as active
   const current = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('nav.links a').forEach(link => {
+  document.querySelectorAll('nav.links a, .mobile-menu a').forEach(link => {
     const href = link.getAttribute('href');
     if (href === current) link.classList.add('active');
   });

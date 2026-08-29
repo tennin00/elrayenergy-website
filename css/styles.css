@@ -1013,11 +1013,12 @@ footer{ background:var(--navy); padding:44px 0 30px; border-top:1px solid rgba(2
   box-shadow:0 16px 32px -12px rgba(0,0,0,0.4);
   max-width:520px;
   margin:0 auto;
+}
+.consent-banner.show{
   display:flex;
   flex-direction:column;
   gap:14px;
 }
-.consent-banner.show{ display:flex; }
 .consent-banner p{ font-size:13.5px; line-height:1.5; color:#D9E0EA; }
 .consent-banner a{ color:var(--gold); text-decoration:underline; }
 .consent-actions{ display:flex; gap:10px; }

@@ -1,14 +1,15 @@
 // ElRay Energy shared site behaviour
-// Handles: footer year, scroll-reveal animation, active nav link.
+// Handles: footer year, scroll-reveal animation, active nav link,
+// mobile nav toggle, cookie consent, service-card tilt.
 
 function initTiltCards() {
   const cards = document.querySelectorAll('.serve-card');
   if (!cards.length) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return; // respect accessibility setting — no motion
+  if (reduced) return;
 
-  const maxTilt = 1; // degrees, keep this subtle
+  const maxTilt = 1;
 
   cards.forEach(card => {
     let frame;
@@ -24,7 +25,7 @@ function initTiltCards() {
       const rotateX = -py * maxTilt * 2;
 
       card.classList.add('tilting');
-      card.style.transition = 'box-shadow 0.3s ease'; // snappy while moving
+      card.style.transition = 'box-shadow 0.3s ease';
       card.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
       card.style.setProperty('--my', `${(y / rect.height) * 100}%`);
 
@@ -38,7 +39,7 @@ function initTiltCards() {
     card.addEventListener('mouseleave', () => {
       cancelAnimationFrame(frame);
       card.classList.remove('tilting');
-      card.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease'; // smooth return
+      card.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease';
       card.style.transform = '';
     });
   });
@@ -46,54 +47,44 @@ function initTiltCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Cookie consent — gates Google Analytics behind an explicit choice
-  const GA_ID = 'G-XXXXXXXXXX'; // your real Measurement ID
-
-  function loadAnalytics() {
-    const s1 = document.createElement('script');
-    s1.async = true;
-    s1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-    document.head.appendChild(s1);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', GA_ID);
-    window.gtag = gtag;
-  }
-
+  // ---------- Cookie consent (Consent Mode v2) ----------
+  // NOTE: this relies on `gtag` being defined by the <head> snippet on
+  // every page. If that snippet is missing, gtag() calls below will
+  // throw — this guard catches that case with a clear console warning
+  // instead of silently failing.
   const consentBanner = document.getElementById('consent-banner');
   const consentChoice = localStorage.getItem('elray-consent');
 
-  if (consentChoice === 'accepted') {
-    loadAnalytics();
-  } else if (consentChoice === null && consentBanner) {
+  function updateConsent(granted) {
+    if (typeof gtag !== 'function') {
+      console.warn('gtag is not defined — check that the Google tag <head> snippet is present on this page.');
+      return;
+    }
+    gtag('consent', 'update', {
+      'ad_storage': granted ? 'granted' : 'denied',
+      'ad_user_data': granted ? 'granted' : 'denied',
+      'ad_personalization': granted ? 'granted' : 'denied',
+      'analytics_storage': granted ? 'granted' : 'denied'
+    });
+  }
+
+  if (consentChoice === null && consentBanner) {
     consentBanner.classList.add('show');
   }
 
   document.getElementById('consent-accept')?.addEventListener('click', () => {
     localStorage.setItem('elray-consent', 'accepted');
-    consentBanner.classList.remove('show');
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'ad_user_data': 'granted',
-      'ad_personalization': 'granted',
-      'analytics_storage': 'granted'
-    });
+    consentBanner?.classList.remove('show');
+    updateConsent(true);
   });
 
   document.getElementById('consent-decline')?.addEventListener('click', () => {
     localStorage.setItem('elray-consent', 'declined');
-    consentBanner.classList.remove('show');
-    gtag('consent', 'update', {
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'analytics_storage': 'denied'
-    });
+    consentBanner?.classList.remove('show');
+    updateConsent(false);
   });
 
-  // Mobile nav toggle
+  // ---------- Mobile nav toggle ----------
   const navToggle = document.getElementById('nav-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
 
@@ -101,14 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', isOpen);
-      // swap hamburger icon to an X while open
       navToggle.innerHTML = isOpen
         ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>'
         : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
     });
 
-    // close the menu after tapping a link, so it doesn't stay open
-    // when the new page loads
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
@@ -117,11 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Footer year
+  // ---------- Footer year ----------
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Scroll reveal (respects prefers-reduced-motion)
+  // ---------- Scroll reveal ----------
   const revealEls = document.querySelectorAll('.reveal');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -138,11 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.15 });
     revealEls.forEach(el => io.observe(el));
   } else {
-    // no IntersectionObserver support, just show everything
     revealEls.forEach(el => el.classList.add('in'));
   }
 
-  // Mark the current page's nav link as active
+  // ---------- Active nav link ----------
   const current = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('nav.links a, .mobile-menu a').forEach(link => {
     const href = link.getAttribute('href');

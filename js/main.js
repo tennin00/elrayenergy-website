@@ -46,6 +46,53 @@ function initTiltCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Cookie consent — gates Google Analytics behind an explicit choice
+  const GA_ID = 'G-XXXXXXXXXX'; // your real Measurement ID
+
+  function loadAnalytics() {
+    const s1 = document.createElement('script');
+    s1.async = true;
+    s1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    document.head.appendChild(s1);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+    window.gtag = gtag;
+  }
+
+  const consentBanner = document.getElementById('consent-banner');
+  const consentChoice = localStorage.getItem('elray-consent');
+
+  if (consentChoice === 'accepted') {
+    loadAnalytics();
+  } else if (consentChoice === null && consentBanner) {
+    consentBanner.classList.add('show');
+  }
+
+  document.getElementById('consent-accept')?.addEventListener('click', () => {
+    localStorage.setItem('elray-consent', 'accepted');
+    consentBanner.classList.remove('show');
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted'
+    });
+  });
+
+  document.getElementById('consent-decline')?.addEventListener('click', () => {
+    localStorage.setItem('elray-consent', 'declined');
+    consentBanner.classList.remove('show');
+    gtag('consent', 'update', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied'
+    });
+  });
+
   // Mobile nav toggle
   const navToggle = document.getElementById('nav-toggle');
   const mobileMenu = document.getElementById('mobile-menu');

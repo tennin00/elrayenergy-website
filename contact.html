@@ -2,12 +2,36 @@
 <html lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZVDBYDMJM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
+  // Consent Mode v2 — deny by default until the visitor chooses
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  // Static multi-page site — consent choice doesn't persist across page
+  // loads on its own, so re-apply it here if the visitor already chose
+  // on an earlier page
+  (function () {
+    var stored = localStorage.getItem('elray-consent');
+    if (stored === 'accepted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZVDBYDMJM"></script>
+<script>
+  gtag('js', new Date());
   gtag('config', 'G-FZVDBYDMJM');
 </script>
 <meta charset="UTF-8">
@@ -161,6 +185,7 @@
         <a href="how-it-works.html">How It Works</a>
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
       </div>
       <div class="foot-col">
         <h3>Get in touch</h3>
@@ -173,5 +198,12 @@
 </footer>
 
 <script src="js/main.js"></script>
+<div id="consent-banner" class="consent-banner">
+  <p>We use analytics cookies to understand how visitors use this site. <a href="privacy.html">Learn more</a></p>
+  <div class="consent-actions">
+    <button id="consent-accept" class="btn btn-gold" style="padding:9px 20px; font-size:13px;">Accept</button>
+    <button id="consent-decline" class="btn btn-outline" style="padding:9px 20px; font-size:13px;">Decline</button>
+  </div>
+</div>
 </body>
 </html>
